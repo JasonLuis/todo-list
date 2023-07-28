@@ -1,5 +1,6 @@
-import restify, { Next, Request, Response } from 'restify';
-import { TasksRoutes } from './routes/tasks.routes';
+import restify, { Next, Request, Response } from "restify";
+import { TasksRoutes } from "./routes/tasks.routes";
+import { UsersRoutes } from "./routes/users.routes";
 
 const app = restify.createServer();
 app.use(restify.plugins.bodyParser());
@@ -7,6 +8,9 @@ app.use(restify.plugins.queryParser());
 
 const tasksRoutes = new TasksRoutes(app);
 tasksRoutes.getRoutes();
+
+const usersRoutes = new UsersRoutes(app);
+usersRoutes.getRoutes();
 
 app.on('restifyError', (req: Request, res: Response, err: Error, next: Next) => {
     if (err instanceof Error) {
